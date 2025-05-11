@@ -1,1 +1,242 @@
-# mother-s-day
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mother's Day</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow-x: hidden;
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+    }
+
+    .container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .intro, .main-page {
+      text-align: center;
+      transition: all 1s ease;
+    }
+
+    .intro {
+      z-index: 2;
+    }
+
+    .main-page {
+      opacity: 0;
+      transform: scale(0.9);
+      z-index: 1;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .show-main {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+      z-index: 3;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 15px 35px;
+      font-size: 1.2rem;
+      background: #fff;
+      border: none;
+      border-radius: 30px;
+      color: #e91e63;
+      cursor: pointer;
+      animation: glowing 2s infinite;
+      transition: 0.3s;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:hover {
+      background-color: #e91e63;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    h1.typing {
+      font-size: 2.5em;
+      color: #1302ff;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+      overflow: hidden;
+      border-right: .15em solid #1302ff;
+      white-space: nowrap;
+      letter-spacing: .1em;
+      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    }
+
+    .main-page p {
+      font-size: 1.2em;
+      color: #111111;
+      max-width: 700px;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+      line-height: 1.6;
+      margin-bottom: 30px;
+      animation: fadeIn 2s ease 1.5s forwards;
+      opacity: 0;
+    }
+
+    .photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .photo-grid img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      animation: zoomIn 1s ease forwards;
+    }
+
+    .photo-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgb(245, 6, 97);
+      left: 50%;
+      top: 100%;
+      animation: floatHeart 6s linear infinite;
+      transform: rotate(45deg);
+      opacity: 0.6;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgb(253, 5, 141);
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    /* Animations */
+    @keyframes floatHeart {
+      0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
+      100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes glowing {
+      0% { box-shadow: 0 0 5px #e91e63; }
+      50% { box-shadow: 0 0 20px #e91e63; }
+      100% { box-shadow: 0 0 5px #e91e63; }
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #1302ff; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Audio for background music -->
+  <audio id="backgroundMusic" loop>
+    <source src="ammamusic.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Intro Page -->
+  <div class="intro" id="intro">
+    <h1>🌸 Happy Mother's Day 🌸</h1>
+    <button class="btn" onclick="startCelebration()">Click Me</button>
+  </div>
+
+  <!-- Main Page -->
+  <div class="main-page" id="mainPage">
+    <h1 class="typing">Happy Mother's Day Amma ❤👩🏻‍🍼</h1>
+    <p>
+      You are the light of my life, the warmth in every hug, and the strength behind every step.<br>
+      Thank you for your love, your care, and your unshakable support.<br>
+      I love you more than words can ever say.
+    </p>
+
+    <div class="photo-grid">
+      <img src="amma1.jpg" alt="Photo 1">
+      <img src="amma2.jpg" alt="Photo 2">
+      <img src="amma3.jpg" alt="Photo 3">
+    </div>
+  </div>
+
+  <!-- Floating hearts -->
+  <script>
+    for (let i = 0; i < 25; i++) {
+      let heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      heart.style.animationDelay = i * 0.2 + "s";
+      document.body.appendChild(heart);
+    }
+
+    function startCelebration() {
+      document.getElementById("intro").style.display = "none";
+      const mainPage = document.getElementById("mainPage");
+      mainPage.classList.add("show-main");
+
+      // Start music after user interaction
+      const music = document.getElementById("backgroundMusic");
+      music.play();
+    }
+  </script>
+</div>
+
+</body>
+</html>
